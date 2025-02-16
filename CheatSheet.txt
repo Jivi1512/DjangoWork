@@ -1,0 +1,60 @@
+STEP						COMMAND
+Go to desired folder				cd "C:\path\to\your\folder"
+Create virtual environment			python -m venv myenv
+Activate venv (Windows)				myenv\Scripts\activate
+Install Django					pip install django
+Create Django project in the same folder	django-admin startproject mynewproject .
+Run server					python manage.py runserver
+
+CREATING AN APP:-
+1. Go to desired folder				cd "C:\path\to\your\folder"
+2. Activate venv (Windows)			myenv\Scripts\activate
+3. Create Django project			django-admin startproject mynewproject
+4. Inside mynewproject/ create app		cd mynewproject
+						python manage.py startapp mynewapp
+*Files in mynewapp:
+File		Purpose
+models.py	Defines the database structure (tables & fields).
+views.py	Handles logic for processing requests and responses.
+admin.py	Customizes the Django admin panel.
+apps.py		Registers the app inside Django.
+migrations/	Stores database migration files.
+tests.py	Used for writing test cases.
+
+5. Register app in mynewproject/settings.py in INSTALLED_APP list.
+6. Open myapp/views.py and create a function that returns an HTML response:
+	
+	from django.shortcuts import render
+	def home(request):
+    		return render(request, 'home.html')
+
+7. Open myapp/ and create a urls.py file (if it doesn't exist):
+
+	from django.urls import path
+	from . import views
+	urlpatterns = [
+    		path('', views.home, name='home'),  # Home page URL
+	]
+8. Include the app’s URLs in the project's myproject/urls.py:
+	
+	from django.contrib import admin
+	from django.urls import path, include
+	urlpatterns = [
+    		path('admin/', admin.site.urls),
+    		path('', include('myapp.urls')),  # Include myapp's URLs
+	]
+9. Create an HTML template in templates/.
+10. Run the Django server: python manage.py runserver.
+
+SUMMARY:
+1. Navigate to the desired folder – Move to the directory where you want to create the project.
+2. Activate Virtual Environment – Activate venv for an isolated environment.
+3. Create Django Project – Run django-admin startproject mynewproject.
+4. Create Django App – Inside mynewproject/, create an app named mynewapp using startapp.
+5. Register the App – Add 'mynewapp' to INSTALLED_APPS in mynewproject/settings.py.
+6. Create a View – In views.py, define a function to render an HTML template (home.html).
+7. Set Up URLs in the App – Create urls.py in mynewapp/ and map it to the view.
+8. Include App URLs in Project – Update mynewproject/urls.py to include the app’s URLs using include().
+9. Create an HTML Template – Inside mynewapp/templates/, create home.html to display content.
+10. Run the Server – Use python manage.py runserver to start the project.
+
