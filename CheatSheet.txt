@@ -58,3 +58,37 @@ SUMMARY:
 9. Create an HTML Template – Inside mynewapp/templates/, create home.html to display content.
 10. Run the Server – Use python manage.py runserver to start the project.
 
+*DJANGO MODELS: data is created in objects, called Models, and is actually tables in a database.
+CREATE TABLE(MODEL): navigate to models.py in app
+Add your tablename(here, record), and create a class and describe table fields
+	from django.db import models
+	class Record(models.Model):
+  		firstname = models.CharField(max_length=255)
+  		lastname = models.CharField(max_length=255)
+NOTE:When we created the Django project, we got an empty SQLite database, created in the project root folder, and has the filename db.sqlite3.
+MIGRATE: After describing a model, run a command to actually create a table.
+	python manage.py makemigrations record
+Then run migrate command:
+	python manage.py migrate
+NOTE: When you make changes in the models.py file, you must run two migration commands to make the model synchronized with the database, ie. makemigrations and migrate in cmd.
+VIEW SQL:
+	python manage.py sqlmigrate record 0001
+
+DJANGO INSERT DATA: Use shell to add records.
+	python manage.py shell
+	>>>from record.models import Record
+	>>>Record.objects.all() #record is appname, can vary
+Add record to table by:
+	>>>record=Record(fname='Jivi', lname='R')
+	>>>record.save()
+	>>>Record.objects.all().values()
+Add multiple records:
+	>>>record1=Record(fname='Jivansh',lname='R')
+	>>>record2=Record(fname='Jiv',lname='R')
+	>>>recordlist=[record1,record2]
+	>>>for x in recordlist:
+	>>>		x.save()
+NOTE: Always save to see your result.
+
+UPDATING RECORDS:
+
